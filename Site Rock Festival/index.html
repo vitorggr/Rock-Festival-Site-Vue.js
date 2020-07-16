@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>IV Garage Festival</title>
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <script src="dados.js"></script>
+  <script src="https:unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div class="navbar-fixed">
+  <nav class="black" role="navigation">
+   
+   
+    <div class="nav-wrapper">
+        <ul class="left">
+        <li><img id="logo-container" class="brand-logo responsive-img" src="logo.png"></li>
+        </ul>
+      <div id="navbar">
+
+              <nav-component></nav-component>
+       
+    </div>
+    </div>
+    </nav>
+    </div>
+
+  <div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+
+
+      </div>
+    </div>
+    <div class="parallax"><img src="guitar-player.jpg" class="responsive-img" alt="Unsplashed background img 1"></div>
+  </div>
+
+
+  <div class="container">
+    <div class="section" id="section">
+      <h1>{{write.h1}}</h1>
+      <h6>{{write.h6}}</h6>
+      <br> <!--   Icon Section   -->
+      <div class="row" >
+        
+
+        
+       
+        <card></card>
+      
+       
+
+        </div>
+
+
+      </div>
+  
+    </div>
+
+  <div class="container">
+    <div class="section" id="content">
+
+      <div class="row">
+        <div class="col s12 ">
+          <h3><i class="mdi-content-send brown-text"></i></h3>
+          <h1>{{write.H1}}</h1>
+          <p class="left-align light">{{write.p}}</p>
+        </div>
+      </div>
+      <a class="waves-effect waves-light btn-large red" href="inscricao.html">{{write.a}}</a>
+    </div>
+  </div><br>
+
+
+  <div class="parallax-container valign-wrapper">
+    <div class="section no-pad-bot">
+      <div class="container">
+        <div class="row center">
+        </div>
+      </div>
+    </div>
+    <div class="parallax"><img src="solo.jpeg" class="responsive-img" alt="Unsplashed background img 3"></div>
+  </div>
+
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  
+ <script>
+
+        Vue.component('nav-component',{
+            data: function(){
+              return{
+                links : linksNavbar
+              }
+
+            },
+            template:'<ul class="right hide-on-med-and-down"">'+ 
+            '<li class="active" v-for="link in links" >'+
+            '<a v-bind:href="link.url">'+'{{link.nome}}</a></li></ul>',
+          });
+
+          var app = new Vue({
+      el: '#navbar'
+    });
+
+
+        Vue.component('card',{
+      data: function(){
+        return{
+          bands : cards
+        }
+      },
+      template: ' <div id="idCard">'+
+      '<br><div class="col s12 m6 l4" v-for="band in bands">'+
+          '<div class="card ">'+
+              '<div class="card-image">'+
+              '<img v-bind:src="band.foto" class="imagem responsive-img">'+
+              '<span class="card-title grey darken-4 opacity">{{band.titulo}}</span>'+
+             '</div>'+
+              '<div class="card-content">'+
+               ' <p class="light">{{band.descricao}}</p>'+
+              '</div>'+
+          '</div>'+
+        '</div>' + 
+        '</div>',
+   
+    });
+
+    var vm = new Vue({
+      el: '.row'
+    });
+
+  var content = new Vue({
+  el:'#content',
+  data: {
+  write : writings,
+  }});
+
+  
+  var section = new Vue({
+  el:'#section',
+  data: {
+  write : writings,
+  bands : cards
+  }});
+
+ 
+
+  </script>
+
+</body>
+
+</html>

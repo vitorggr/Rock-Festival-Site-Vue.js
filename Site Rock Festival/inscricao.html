@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      
+        <title>Inscrição</title>
+        <!-- CSS  -->
+        
+       
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    
+      
+</head>
+<body>
+        <nav class="black" role="navigation">
+                <!-- <div class="nav-wrapper container"> -->
+                    
+                    <ul class="left">
+                    <li><img id="logo-container" class="brand-logo responsive-img" src="logo.png"></li>
+                    </ul>
+                  
+                  <ul class="right">
+                    <li class="active"><a href="index.html">Início</a></li>
+                    <li class="active"><a href="inscricao.html">Inscrição</a></li>
+                    <li class="active"><a href="faleconosco.html">Fale Conosco</a></li>
+                  </ul>
+            
+               
+             <!--    </div> -->
+              </nav>
+    <div class="container">
+        <div id="section">
+
+                <div class="col s12 m8 offset-m1 xl7 offset-xl1">
+            
+                  <div id="introduction" class="section scrollspy">
+                    <div class="row">
+                      <form class="col s12" @submit.prevent="enviarForm">
+                        <div class="row" id="vm" >
+
+                            <h1 class="lighten-red" >Inscrição </h1>
+             
+                                    <div class="input-field col s12">
+                                      <span class="obs" data-error="wrong" data-success="right">&nbsp;&nbsp; &nbsp; &nbsp;  Preencha todos os campos abaixo, listando todos integrantes</span><br><br>
+                                    </div>
+
+                            <h3>Informações Gerais</h3>
+
+
+                          <input  placeholder="Nome da Banda" v-model="form.nome"   type="text" >
+
+
+
+                          <textarea id="textarea1" placeholder="Breve Release" v-model="form.release" class="materialize-textarea"></textarea>
+    
+                                  
+
+                            <label>Estado</label>
+                            <select class="browser-default" v-model="uf" v-model="form.estado" @change="cidades(uf)" >
+                              <option value="" disabled="" selected="">Estado</option>
+                              <option  v-for="estado in estados" v-bind:value="estado.id">{{estado.sigla}} - {{estado.nome}}</option>
+                            </select>
+
+
+                                <label>Cidade</label>
+                                <select class="browser-default" v-model="form.cidade">
+                                  <option value="" disabled="">Cidade</option>
+                                  <option v-for="item in municipios">{{item.nome}}</option>
+                                </select>
+
+                              
+                              
+                                <br>
+                                <label><p>Quanto tempo de existencia da Banda?</p></label>
+                                
+                                <p>
+                                  
+                                <label class="col s2">
+                                  <input type="radio" name="group" value="Menos de 1 ano" v-model="form.longevidade"/>
+                                  <span>Menos de 1 ano</span>
+                                </label>
+                                  <label class="col s2">
+                                    <input type="radio"  name="group" value="1 ano" v-model="form.longevidade"/>
+                                    <span>1 ano</span>
+                                  </label>
+                                  <label class="col s2">
+                                    <input type="radio" name="group" value="2 ano" v-model="form.longevidade"/>
+                                    <span>2 ano</span>
+                                  </label>
+                                  <label class="col s2">
+                                    <input type="radio"  name="group" value="Menos de 5 anos" v-model="form.longevidade"/>
+                                    <span>Menos de 5 anos</span>
+                                  </label>
+                                  <label class="col s2">
+                                    <input type="radio"  name="group" value="Menos de 10 anos" v-model="form.longevidade"/>
+                                    <span>Menos de 10 anos</span>
+                                  </label>
+                                  <label class="col s2">
+                                    <input type="radio"  name="group" value="Mais de 10 ano" v-model="form.longevidade"/>
+                                    <span>Mais de 10 ano</span>
+                                  </label>
+                                </p>
+
+                              </div><br>
+
+                              <h3 class="lighten-red" >Integrantes </h3><br><br>
+
+
+                              <div class="card" id="main">
+                                    <div class="card-image">
+                                 
+                                   </div>
+                                    <div class="card-content">
+                                      <section>
+                                       
+                                        
+                                          
+                                          
+                
+                
+                                          <input placeholder="Nome do Integrante" type="text" v-model.lazy.trim="integrante.nome" >
+                
+                
+                
+                                         <input placeholder="Email" type="email" v-model="integrante.email"><br><br>
+                                  
+                                        
+                                        <div class="switch">
+                                            <label>
+                                              <input type="checkbox"  v-model="integrante.lider">
+                                              <span class="lever" ></span>
+                                              É o líder e contato da banda
+                                            </label>
+                                          </div>
+                                        
+
+                                                <label style="color: black"><h4>Instrumento</h4></label><br>
+                
+                                                <p>
+                                                  <div class="col s4">
+                                                    <label>
+                                                      <input type="checkbox" 
+                                                      v-model="integrante.instrumentos" value="Bateria"
+                                                      class="filled-in"/>
+                                                      <span>Bateria</span>
+                                                    </label>
+                                                  </div>
+                                                  <div class="col s4">
+                                                      <label>
+                                                        <input type="checkbox" 
+                                                        v-model="integrante.instrumentos" value="Guitarra"
+                                                        class="filled-in"/>
+                                                        <span>Guitarra</span>
+                                                      </label>
+                                                     </div>
+                                                     <div class="col s4">
+                                                      <label>
+                                                        <input type="checkbox" 
+                                                        v-model="integrante.instrumentos" value="Violão"
+                                                        class="filled-in"/>
+                                                        <span>Violão</span>
+                                                      </label>
+                                                    </div><br>
+                                                    <div class="col s4">
+                                                      <label>
+                                                        <input type="checkbox" 
+                                                        v-model="integrante.instrumentos" value="Baixo"
+                                                        class="filled-in"/>
+                                                        <span>Baixo</span>
+                                                      </label>
+                                                      </div>
+                                                      <div class="col s4">
+                                                      <label>
+                                                        <input type="checkbox" v-model="integrante.instrumentos" value="Teclado" class="filled-in"/>
+                                                        <span>Teclado</span>
+                                                      </label>
+                                                      </div>
+                                                      <div class="col s4">
+                                                      <label>
+                                                        <input type="checkbox" v-model="integrante.instrumentos"  value="Vocal" class="filled-in"/>
+                                                        <span>Vocal</span>
+                                                      </label>
+                                                      </div><br>
+                                                      <div class="col s12">
+                                                      <label>
+                                                        <input type="checkbox" v-model="integrante.instrumentos"  value="Flauta" class="filled-in"/>
+                                                        <span>Flauta</span>
+                                                      </label>
+                                                    </div>
+
+                                                    </p><br><br>
+
+                                                <br><a type="submit"  class="waves-effect waves-light btn red" @click="enviar()"> INCLUIR INTEGRANTE</a><br><br>
+
+                                                  <!-- Modal Structure -->
+<section>
+  <div id="modal1" class="modal" >
+    <div class="modal-content">
+      <h3>Editar Integrante</h3>
+      <p>Faça as suas alterações e depois atualize</p>
+      <h4> Integrantes</h4>
+      <input  placeholder="Nome do Integrante"  v-model="integranteModel.nome" type="text" >     
+      
+      <input placeholder="Email" type="email" v-model="integranteModel.email"><br><br>
+                                  
+                                        
+      <div class="switch">
+          <label>
+            <input type="checkbox" value="integranteModel.lider" v-model="integranteModel.lider">
+            <span class="lever"></span>
+            É o líder e contato da banda
+          </label>
+        </div>
+   
+     <input type="checkbox">
+     <br>
+
+
+             <label style="color: black"><h4>Instrumento</h4></label><br>
+
+             <p>
+               <div class="col s4">
+                 <label>
+                   <input type="checkbox" class="filled-in" value="Bateria" v-model="integranteModel.instrumentos"/>
+                   <span>Bateria</span>
+                 </label>
+               </div>
+               <div class="col s4">
+                   <label>
+                     <input type="checkbox" class="filled-in" value="Guitarra" v-model="integranteModel.instrumentos"/>
+                     <span>Guitarra</span>
+                   </label>
+                  </div>
+                  <div class="col s4">
+                   <label>
+                     <input type="checkbox" class="filled-in" value="Violão" v-model="integranteModel.instrumentos"/>
+                     <span>Violão</span>
+                   </label>
+                 </div><br>
+                 <div class="col s4">
+                   <label>
+                     <input type="checkbox" class="filled-in" value="Baixo" v-model="integranteModel.instrumentos"/>
+                     <span>Baixo</span>
+                   </label>
+                   </div>
+                   <div class="col s4">
+                   <label>
+                     <input type="checkbox" class="filled-in" value="Teclado" v-model="integranteModel.instrumentos"/>
+                     <span>Teclado</span>
+                   </label>
+                   </div>
+                   <div class="col s4">
+                   <label>
+                     <input type="checkbox" class="filled-in" value="Vocal" v-model="integranteModel.instrumentos"/>
+                     <span>Vocal</span>
+                   </label>
+                   </div><br>
+                   <div class="col s12">
+                   <label>
+                     <input type="checkbox" class="filled-in" value="Flauta"  v-model="integranteModel.instrumentos"/>
+                     <span>Flauta</span>
+                   </label>
+                 </div>
+                 </p><br>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close waves-effect waves-light btn red " @click="confirmar()">alterar</a>
+    </div>
+  </div>
+  
+ </section><br>
+                                              
+                                                <table class="highlight" v-if="inserido">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Nome</th>
+                                                            <th>E-mail</th>
+                                                            <th>Instrumento</th>
+                                                            <th>Líder</th>
+                                                            <th></th>
+                                                            <th></th>        
+                                                        </tr>
+                                                        </thead>
+                                                
+                                                        <tbody>
+                                                            <tr  v-for="(i,index) in integrantes">
+                                                                <td>{{i.nome}}</td>
+                                                                <td>{{i.email}}</td>
+                                                                <td>{{i.instrumentos}}</td> 
+                                                                <td>{{ i.lider ? 'SIM' : 'NÃO'}}</td>
+                                                                <td class="material-icons"><a class="modal-trigger" href="#modal1" @click="alterar(index)">edit</a></td>
+                                                                <td class="material-icons"><a @click="excluir(index)" href="#main">delete</a></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                  
+                                                
+                                                   
+                                    </div>
+                                </div>
+
+                                <br><button class="waves-effect waves-light btn-large red left" type="submit" ><!-- <i class="material-icons right">send</i> -->ENVIAR INSCRIÇÃO</button>
+                              
+                              </form>
+                            </section>
+
+
+
+ 
+
+                  
+                    </div>
+                </div>
+                </div>         
+              </div>
+            </div>
+
+ <!--  Scripts-->
+ <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+ <script src="js/materialize.js"></script>
+ <script src="js/init.js"></script>
+ <script src="https:unpkg.com/vue"></script>
+
+ <script>
+
+  var v = new Vue({
+              el: '#section',
+              data: {    
+                uf : '',
+                estados: [],
+                municipios: [],
+                  integrante: {
+                      nome: '',
+                      email: '',
+                      lider: false,
+                      instrumentos: []},
+                  integranteModel:{
+                      nome: '',
+                      email: '',
+                      lider: false,
+                      instrumentos: []
+                  },
+                  inserido: false,
+                  index: null,
+                  integrantes: [],
+                  form:{
+                            nome:'',
+                            release:'',
+                            estadoID :'',
+                            cidade:'',
+                            longevidade:'',
+                            membros :[]
+                             },
+              },
+              methods: {
+                
+                  enviar: function(event){
+                      const formPreenchido = Object.assign({}, this.integrante);
+                      console.log("Integrante adicionado com sucesso", formPreenchido);
+                      this.integrantes.push(formPreenchido);
+                      this.inserido = true;
+                      this.limpar();
+                  },
+                  limpar: function(){
+                      this.integrante = Object.assign({}, this.integranteModel)
+                  },
+                  excluir: function(index){
+                    var x = this.integrantes.lenght
+                    this.integrantes.splice(index, 1);
+                    switch(this.integrantes.lenght){
+                      case 0: this.inserido = false
+                    }
+                  },
+                  alterar: function(index){
+                     this.index = index
+                     integrante = Object.assign({},this.integrantes[index])
+                  },
+                  confirmar: function(){
+                    const form = Object.assign({}, this.integranteModel);
+                    this.integrantes[this.index]=form;
+                    console.log("Integrante alterado com sucesso", form);
+                    console.log("Lista atual de integrantes:",this.integrantes)
+                    this.limpar();
+                  },
+                  enviarForm: function(){
+                      let formPreenchido = Object.assign({}, this.form);
+                      formPreenchido.membros = this.integrantes;
+                      formPreenchido.estadoID = this.uf
+                      console.log("Formulário enviado com sucesso", formPreenchido);
+                      this.inserido = false;
+                      this.limpar();
+                      alert("Formulário enviado com sucesso!")
+                  },
+                  cidades: function(uf){
+              fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados/'+uf+'/municipios')
+              .then(response => response.json())
+              .then(json => {
+              this.municipios = json
+              })
+              }
+              },
+              created(){
+                fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+                .then(response => response.json())
+                .then(json => {
+                this.estados = json
+                })
+                  this.limpar();
+              }
+              
+          })
+  
+   /*  var vm = new Vue({
+   el:'form',
+   data: {
+   uf : 0,
+   estados: [],
+   municipios: []
+   },
+   methods:{
+  cidades: function(uf){
+  fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados/'+uf+'/municipios')
+   .then(response => response.json())
+   .then(json => {
+   this.municipios = json
+   })
+   },
+   
+   
+   created(){
+  
+  fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
+   .then(response => response.json())
+   .then(json => {
+   this.estados = json
+   })
+   }
+   }}); */
+  
+      $(document).ready(function(){
+         $('.modal').modal();
+       });
+      </script> 
+   
+  
+  </body>
+  </html>
